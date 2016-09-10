@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://org/ibm/products/webservices/services" xmlns:sch1="http://products.webservices.ibm.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://org/ibm/products/webservices/services" targetNamespace="http://org/ibm/products/webservices/services">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://org/ibm/products/webservices/services" xmlns:product="http://products.webservices.ibm.org" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://org/ibm/products/webservices/services"><xsd:import namespace="http://products.webservices.ibm.org"/><xsd:element name="ProductsRequest"><xsd:complexType><xsd:sequence><xsd:element name="product_id" type="xsd:decimal"/></xsd:sequence></xsd:complexType></xsd:element><xsd:element name="ProductDetailsResponse"><xsd:complexType><xsd:sequence><xsd:element name="ProductDetails" type="product:ProductsList"/></xsd:sequence></xsd:complexType></xsd:element></xsd:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://products.webservices.ibm.org" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://products.webservices.ibm.org"><xs:element name="Products" type="Products"/><xs:complexType name="Products"><xs:sequence><xs:element name="product_id" type="xs:decimal"/><xs:element name="product-name" type="xs:string"/><xs:element name="product_description" type="xs:string"/><xs:element name="premium" type="xs:decimal"/><xs:element name="status" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="ProductsList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="products" nillable="true" type="Products"/></xs:sequence></xs:complexType></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProductsRequest">
+    <wsdl:part element="tns:ProductsRequest" name="ProductsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProductDetailsResponse">
+    <wsdl:part element="tns:ProductDetailsResponse" name="ProductDetailsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProductDetailsService">
+    <wsdl:operation name="Products">
+      <wsdl:input message="tns:ProductsRequest" name="ProductsRequest">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ProductDetails">
+      <wsdl:output message="tns:ProductDetailsResponse" name="ProductDetailsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductDetailsServiceSoap11" type="tns:ProductDetailsService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Products">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ProductsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ProductDetails">
+      <soap:operation soapAction=""/>
+      <wsdl:output name="ProductDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductDetailsServices">
+    <wsdl:port binding="tns:ProductDetailsServiceSoap11" name="ProductDetailsServiceSoap11">
+      <soap:address location="http://localhost:8080/products/endpoints"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

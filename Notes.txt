@@ -1,0 +1,2 @@
+Project with SOAP Client WS name is MetLifeProducts
+SOAP WS Producer Project name is Products

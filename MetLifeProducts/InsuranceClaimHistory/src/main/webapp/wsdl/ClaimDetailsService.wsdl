@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://org/ibm/claims/webservices/services" xmlns:sch1="http://claims.webservices.ibm.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://org/ibm/claims/webservices/services" targetNamespace="http://org/ibm/claims/webservices/services">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://org/ibm/claims/webservices/services" xmlns:claim="http://claims.webservices.ibm.org" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://org/ibm/claims/webservices/services"><xsd:import namespace="http://claims.webservices.ibm.org"/><xsd:element name="ClaimsRequest"><xsd:complexType><xsd:sequence><xsd:element name="policyNumber" type="xsd:string"/></xsd:sequence></xsd:complexType></xsd:element><xsd:element name="ClaimDetailsResponse"><xsd:complexType><xsd:sequence><xsd:element name="ClaimsDetails" type="claim:ClaimsList"/></xsd:sequence></xsd:complexType></xsd:element><xsd:element name="UserDetailsRequest"><xsd:complexType><xsd:sequence><xsd:element name="UserDetails" type="claim:User"/></xsd:sequence></xsd:complexType></xsd:element><xsd:element name="UserDetailsResponse"><xsd:complexType><xsd:sequence><xsd:element name="UserDetails" type="claim:User"/></xsd:sequence></xsd:complexType></xsd:element></xsd:schema>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://claims.webservices.ibm.org" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://claims.webservices.ibm.org"><xs:element name="User" type="User"/><xs:complexType name="User"><xs:sequence><xs:element name="UserName" type="xs:string"/><xs:element name="Password" type="xs:string"/><xs:element name="UserStatus" type="EnumUserStatus"/></xs:sequence></xs:complexType><xs:simpleType name="EnumUserStatus"><xs:restriction base="xs:string"><xs:enumeration value="Success"/><xs:enumeration value="Failure"/></xs:restriction></xs:simpleType><xs:element name="Claims" type="Claims"/><xs:complexType name="Claims"><xs:sequence><xs:element name="PolicyNumber" type="xs:string"/><xs:element name="Name" type="xs:string"/><xs:element name="Amount" type="xs:decimal"/><xs:element name="DateOfBirth" type="xs:date"/><xs:element name="PolicyExpiryDate" type="xs:date"/></xs:sequence></xs:complexType><xs:complexType name="ClaimsList"><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="claims" nillable="true" type="Claims"/></xs:sequence></xs:complexType></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ClaimDetailsResponse">
+    <wsdl:part element="tns:ClaimDetailsResponse" name="ClaimDetailsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ClaimsRequest">
+    <wsdl:part element="tns:ClaimsRequest" name="ClaimsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserDetailsResponse">
+    <wsdl:part element="tns:UserDetailsResponse" name="UserDetailsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UserDetailsRequest">
+    <wsdl:part element="tns:UserDetailsRequest" name="UserDetailsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ClaimDetailsService">
+    <wsdl:operation name="ClaimDetails">
+      <wsdl:output message="tns:ClaimDetailsResponse" name="ClaimDetailsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Claims">
+      <wsdl:input message="tns:ClaimsRequest" name="ClaimsRequest">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:input message="tns:UserDetailsRequest" name="UserDetailsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:UserDetailsResponse" name="UserDetailsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ClaimDetailsServiceSoap11" type="tns:ClaimDetailsService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ClaimDetails">
+      <soap:operation soapAction=""/>
+      <wsdl:output name="ClaimDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Claims">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ClaimsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="UserDetailsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UserDetailsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ClaimDetailsServices">
+    <wsdl:port binding="tns:ClaimDetailsServiceSoap11" name="ClaimDetailsServiceSoap11">
+      <soap:address location="http://localhost:9080/claims-webservices/endpoints"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
